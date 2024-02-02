@@ -20,6 +20,38 @@ const styles = {
     boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
     backgroundColor: "#fff",
   },
+  ProfilePhotoContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    marginBottom: "0.3rem",
+    marginLeft: "1rem",
+    textAlign: "left",
+  },
+  ProfilePhotoLabel: {
+    marginBottom: "1rem",
+  },
+  ProfilePhotoInput: {
+    display: "none",
+  },
+  ProfilePhotoButton: {
+    backgroundColor: "#525252",
+    color: "#fff",
+    padding: "10px",
+    width: "8rem", 
+    height: "8rem",
+    borderRadius: "50%", 
+    cursor: "pointer",
+    border: "none",
+    outline: "none",
+    textAlign: "center",
+    minWidth: "120px",
+  },
+  ProfilePhotoButtonLabel: {
+    fontSize: "0.90rem",
+    display: "block",
+    marginBottom: "0.5rem", 
+  },
   LabelContainer: {
     display: "flex",
     flexDirection: "column",
@@ -68,8 +100,9 @@ const styles = {
   },
 };
 
-const MembershipForm = () => {
+const Registration = () => {
   const [formData, setFormData] = useState({
+    profilePhoto: null,
     name: "",
     email: "",
     birthdate: "",
@@ -79,12 +112,17 @@ const MembershipForm = () => {
   });
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { files, name, value, type, checked } = e.target;
 
     setFormData((prevData) => ({
       ...prevData,
       [name]: type === "checkbox" ? checked : value,
+      profilePhoto: name === "profilePhoto" ? files[0] : prevData.profilePhoto,
     }));
+  };
+
+  const handleButtonClick = () => {
+    document.getElementById("profilePhotoInput").click();
   };
 
   const handleSubmit = (e) => {
@@ -95,10 +133,32 @@ const MembershipForm = () => {
   return (
     <div>
       <p style={styles.Heading}>
-        Hi, *name*. Please fill the registration form below to become a member of *club name*! {/*Gotta change this line to match each club. And maybe add more info (or whatever needs to be added). Can be done after the clubs are created.*/}
+        Hi, *name*. Please fill the details below to complete your registration!
       </p>
       <div style={styles.Form}>
         <form onSubmit={handleSubmit}>
+          <span style={styles.ProfilePhotoButtonLabel}>
+                Profile Photo:
+              </span>
+          <div style={styles.ProfilePhotoContainer}>
+            <label style={styles.ProfilePhotoLabel}>
+              <button
+                type="button"
+                style={styles.ProfilePhotoButton}
+                onClick={handleButtonClick}
+              >
+                Choose File
+              </button>
+              <input
+                type="file"
+                id="profilePhotoInput"
+                name="profilePhoto"
+                onChange={handleChange}
+                accept="image/*"
+                style={styles.ProfilePhotoInput}
+              />
+            </label>
+          </div>
           <div style={styles.LabelContainer}>
             <label style={styles.Labels}>
               Name:
@@ -120,6 +180,7 @@ const MembershipForm = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
+                required
                 style={styles.Input}
               />
             </label>
@@ -144,6 +205,7 @@ const MembershipForm = () => {
                 name="phonenumber"
                 value={formData.phonenumber}
                 onChange={handleChange}
+                required
                 style={styles.Input}
               />
             </label>
@@ -156,6 +218,7 @@ const MembershipForm = () => {
                 name="dateofjoining"
                 value={formData.dateofjoining}
                 onChange={handleChange}
+                required
                 style={styles.Input}
               />
             </label>
@@ -186,4 +249,4 @@ const MembershipForm = () => {
   );
 };
 
-export default MembershipForm;
+export default Registration;
