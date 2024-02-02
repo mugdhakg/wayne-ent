@@ -32,25 +32,11 @@ const styles = {
     marginBottom: "1rem",
   },
   ProfilePhotoInput: {
-    display: "none",
-  },
-  ProfilePhotoButton: {
-    backgroundColor: "#525252",
-    color: "#fff",
-    padding: "10px",
-    width: "8rem", 
-    height: "8rem",
-    borderRadius: "50%", 
-    cursor: "pointer",
-    border: "none",
-    outline: "none",
-    textAlign: "center",
-    minWidth: "120px",
-  },
-  ProfilePhotoButtonLabel: {
-    fontSize: "0.90rem",
-    display: "block",
-    marginBottom: "0.5rem", 
+    marginBottom: "1rem",
+    width: "100%",
+    boxSizing: "border-box",
+    border: "1px solid #ccc",
+    borderRadius: "5px",
   },
   LabelContainer: {
     display: "flex",
@@ -137,18 +123,9 @@ const Registration = () => {
       </p>
       <div style={styles.Form}>
         <form onSubmit={handleSubmit}>
-          <span style={styles.ProfilePhotoButtonLabel}>
-                Profile Photo:
-              </span>
           <div style={styles.ProfilePhotoContainer}>
             <label style={styles.ProfilePhotoLabel}>
-              <button
-                type="button"
-                style={styles.ProfilePhotoButton}
-                onClick={handleButtonClick}
-              >
-                Choose File
-              </button>
+              Profile Photo:
               <input
                 type="file"
                 id="profilePhotoInput"
